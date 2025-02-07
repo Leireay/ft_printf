@@ -1,8 +1,7 @@
 #include "ft_printf.h"
 
 static int	ft_length_pointer(unsigned long long ptr);
-
-static void	ft_search_pointer(unsigned long long ptr);
+static int	ft_search_pointer(unsigned long long ptr);
 
 int	ft_print_pointer(unsigned long long ptr)
 {
@@ -13,10 +12,7 @@ int	ft_print_pointer(unsigned long long ptr)
 	if (ptr == 0)
 		size += ft_print_character('0');
 	else
-	{
-		ft_search_pointer(ptr);
-		size += ft_length_pointer(ptr);
-	}
+		size += ft_search_pointer(ptr);
 	return (size);
 }
 
@@ -24,6 +20,8 @@ static int	ft_length_pointer(unsigned long long ptr)
 {
 	int	len;
 
+	if (ptr == 0)
+		return (1);
 	len = 0;
 	while (ptr > 0)
 	{
@@ -33,18 +31,22 @@ static int	ft_length_pointer(unsigned long long ptr)
 	return (len);
 }
 
-static void	ft_search_pointer(unsigned long long ptr)
+static int	ft_search_pointer(unsigned long long ptr)
 {
+	int	size;
+
+	size = 0;
 	if (ptr >= 16)
 	{
-		ft_search_pointer(ptr / 16);
-		ft_search_pointer(ptr % 16);
+		size += ft_search_pointer(ptr / 16);
+		size += ft_search_pointer(ptr % 16);
 	}
 	else
 	{
 		if (ptr < 10)
-			ft_print_character(ptr + '0');
+			size += ft_print_character(ptr + '0');
 		else
-			ft_print_character(ptr - 10 + 'a');
+			size += ft_print_character(ptr - 10 + 'a');
 	}
+	return (size);
 }
