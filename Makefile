@@ -1,39 +1,43 @@
 NAME	=	libftprintf.a
-INCLUDE	= 	pintf.h
 
+# Archivos fuente y objeto
 SRC		=	ft_printf.c			\
 			ft_basics.c			\
 			ft_hexadecimals.c	\
-			ft_pointers.c		\
+			ft_pointers.c
 
 OBJ		=	${SRC:.c=.o}
 
+# Herramientas
 CC		=	gcc
 RM		=	rm -f
 AR		=	ar rc
-RN		=	ranlib
 
-CFLAGS	=	-Wall -Wextra -Werror
+# Flags de compilación
+CFLAGS	=	-Wall -Wextra -Werror -I.
 
-.c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+# Regla de compilación de archivos .c a .o
+%.o: %.c ft_printf.h
+	${CC} ${CFLAGS} -c $< -o $@
 
+# Regla principal
 all: $(NAME)
 
-$(NAME):	${OBJ} 
-	@echo "Compiling .."
+$(NAME): ${OBJ}
+	@echo "Compiling $(NAME)..."
 	${AR} ${NAME} ${OBJ}
-	${RN} ${NAME}
-	@echo "Done !"
+	@echo "Done!"
 
+# Limpiar archivos objeto
 clean:
-	@echo "Remove .o  ..."
 	${RM} ${OBJ}
-	@echo "Done !"
 
+# Limpiar todo
 fclean: clean
-	@echo "Remove lib ..."
 	${RM} $(NAME)
-	@echo "Done !"
 
-re: fclean all  
+# Recompilar desde cero
+re: fclean all
+
+# No se trata como archivo
+.PHONY: all clean fclean re
