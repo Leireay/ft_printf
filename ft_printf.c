@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static int	ft_select_format(va_list argument, const char word);
+static int	ft_select_format(va_list argument, char word);
 
 int	ft_print_character(int character)
 {
@@ -19,20 +19,20 @@ int	ft_printf(const char *str, ...)
 	va_start(argument, str);
 	while (str[i])
 	{
-		if (str[i] == '%')
+		if (str[i] == '%' && str[i + 1])
 		{
 			size += ft_select_format(argument, str[i + 1]);
 			i++;
 		}
 		else
-		size += ft_print_character(str[i]);
+			size += ft_print_character(str[i]);
 		i++;
 	}
 	va_end(argument);
 	return (size);
 }
 
-static int	ft_select_format(va_list argument, const char word)
+static int	ft_select_format(va_list argument, char word)
 {
 	int	size;
 
@@ -50,6 +50,6 @@ static int	ft_select_format(va_list argument, const char word)
 	else if (word == 'x' || word == 'X')
 		size += ft_print_hexadecimal(va_arg(argument, unsigned int), word);
 	else
-		size += ft_print_character(word);
+		size += ft_print_character('%') + ft_print_character(word);
 	return (size);
 }
