@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larellan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/08 09:23:24 by larellan          #+#    #+#             */
+/*   Updated: 2025/02/22 17:37:23 by larellan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static int	ft_select_format(va_list argument, char word);
@@ -50,6 +62,6 @@ static int	ft_select_format(va_list argument, char word)
 	else if (word == 'x' || word == 'X')
 		size += ft_print_hexadecimal(va_arg(argument, unsigned int), word);
 	else
-		size += ft_print_character('%') + ft_print_character(word);
+		size += ft_print_character('%');
 	return (size);
 }

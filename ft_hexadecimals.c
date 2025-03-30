@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_hexadecimals.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larellan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/08 09:22:51 by larellan          #+#    #+#             */
+/*   Updated: 2025/02/22 17:35:39 by larellan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int	ft_length_hexadecimal(unsigned int num);
 static int	ft_search_hexadecimal(unsigned int num, char word);
 
 int	ft_print_hexadecimal(unsigned int num, char word)
@@ -27,19 +38,4 @@ static int	ft_search_hexadecimal(unsigned int num, char word)
 			size += ft_print_character((num % 16) - 10 + 'A');
 	}
 	return (size);
-}
-
-static int	ft_length_hexadecimal(unsigned int num)
-{
-	int	len;
-
-	if (num == 0)
-		return (1);
-	len = 0;
-	while (num != 0)
-	{
-		len++;
-		num /= 16;
-	}
-	return (len);
 }

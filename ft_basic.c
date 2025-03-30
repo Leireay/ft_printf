@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_basic.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larellan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/08 09:22:35 by larellan          #+#    #+#             */
+/*   Updated: 2025/02/08 09:22:39 by larellan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_print_string(char *str)
@@ -5,7 +17,7 @@ int	ft_print_string(char *str)
 	int	size;
 
 	if (!str)
-		return (ft_print_string("null"));
+		return (ft_print_string("nil"));
 	size = 0;
 	while (str[size])
 		size += ft_print_character(str[size]);

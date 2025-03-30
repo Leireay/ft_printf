@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pointers.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larellan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/08 09:23:11 by larellan          #+#    #+#             */
+/*   Updated: 2025/02/22 17:36:31 by larellan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int	ft_length_pointer(unsigned long long ptr);
 static int	ft_search_pointer(unsigned long long ptr);
 
 int	ft_print_pointer(unsigned long long ptr)
@@ -14,21 +25,6 @@ int	ft_print_pointer(unsigned long long ptr)
 	else
 		size += ft_search_pointer(ptr);
 	return (size);
-}
-
-static int	ft_length_pointer(unsigned long long ptr)
-{
-	int	len;
-
-	if (ptr == 0)
-		return (1);
-	len = 0;
-	while (ptr > 0)
-	{
-		len++;
-		ptr /= 16;
-	}
-	return (len);
 }
 
 static int	ft_search_pointer(unsigned long long ptr)

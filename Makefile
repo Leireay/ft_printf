@@ -1,32 +1,27 @@
 NAME	=	libftprintf.a
 
 # Archivos fuente y objeto
-SRC		=	ft_printf.c			\
-			ft_basics.c			\
-			ft_hexadecimals.c	\
-			ft_pointers.c
+SRC		=	ft_printf.c ft_basic.c ft_hexadecimals.c ft_pointers.c
 
 OBJ		=	${SRC:.c=.o}
 
 # Herramientas
-CC		=	gcc
+CC		=	cc
 RM		=	rm -f
-AR		=	ar rc
+AR		=	ar rcs
 
 # Flags de compilación
-CFLAGS	=	-Wall -Wextra -Werror -I.
+CFLAGS	=	-Wall -Wextra -Werror
 
 # Regla de compilación de archivos .c a .o
-%.o: %.c ft_printf.h
+%.o: %.c
 	${CC} ${CFLAGS} -c $< -o $@
 
 # Regla principal
 all: $(NAME)
 
 $(NAME): ${OBJ}
-	@echo "Compiling $(NAME)..."
-	${AR} ${NAME} ${OBJ}
-	@echo "Done!"
+	@${AR} ${NAME} ${OBJ}
 
 # Limpiar archivos objeto
 clean:
