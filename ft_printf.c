@@ -12,56 +12,66 @@
 
 #include "ft_printf.h"
 
-static int	ft_select_format(va_list argument, char word);
-
-int	ft_print_character(int character)
+static int	ft_printpointer(void *ptr)
 {
-	write(1, &character, 1);
-	return (1);
+	unsigned long	addr;
+
+	if (ptr == NULL)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	addr = (unsigned long)ptr;
+	write(1, "0x", 2);
+	return (2 + ft_hexa(addr, "0123456789abcdef"));
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_whattype(char c, va_list args)
 {
-	int		i;
-	int		size;
-	va_list	argument;
+	int	count;
 
+	count = 0;
+	if (c == 'c')
+		count = ft_putchar(va_arg(args, int));
+	else if (c == 's')
+		count = ft_putstr(va_arg(args, char *));
+	else if (c == 'p')
+		count = ft_printpointer(va_arg(args, void *));
+	else if (c == 'd' || c == 'i')
+		count = ft_putnbr(va_arg(args, int));
+	else if (c == 'u')
+		count = ft_putunsign(va_arg(args, unsigned int));
+	else if (c == 'x')
+		count = ft_hexa(va_arg(args, unsigned int), "0123456789abcdef");
+	else if (c == 'X')
+		count = ft_hexa(va_arg(args, unsigned int), "0123456789ABCDEF");
+	else if (c == '%')
+		count = ft_putchar('%');
+	return (count);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list	args;
+	int		count;
+	int		i;
+
+	count = 0;
 	i = 0;
-	size = 0;
-	va_start(argument, str);
-	while (str[i])
+	va_start(args, format);
+	while (format[i])
 	{
-		if (str[i] == '%' && str[i + 1])
+		if (format[i] == '%' && format[i + 1])
 		{
-			size += ft_select_format(argument, str[i + 1]);
+			count += ft_whattype(format[i + 1], args);
 			i++;
 		}
 		else
-			size += ft_print_character(str[i]);
+		{
+			count += ft_putchar(format[i]);
+		}
 		i++;
 	}
-	va_end(argument);
-	return (size);
-}
-
-static int	ft_select_format(va_list argument, char word)
-{
-	int	size;
-
-	size = 0;
-	if (word == 'c')
-		size += ft_print_character(va_arg(argument, int));
-	else if (word == 's')
-		size += ft_print_string(va_arg(argument, char *));
-	else if (word == 'p')
-		size += ft_print_pointer(va_arg(argument, unsigned long long));
-	else if (word == 'd' || word == 'i')
-		size += ft_print_number(va_arg(argument, int));
-	else if (word == 'u')
-		size += ft_print_unsigned(va_arg(argument, unsigned int));
-	else if (word == 'x' || word == 'X')
-		size += ft_print_hexadecimal(va_arg(argument, unsigned int), word);
-	else
-		size += ft_print_character('%');
-	return (size);
+	va_end(args);
+	return (count);
 }
