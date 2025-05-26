@@ -1,38 +1,29 @@
-NAME	=	libftprintf.a
+NAME        = libftprintf.a
 
-# Archivos fuente y objeto
-SRC		=	ft_printf.c ft_basic.c ft_hexadecimals.c ft_pointers.c
+SRC         = ft_printf.c utils.c
 
-OBJ		=	${SRC:.c=.o}
+OBJ         = $(SRC:.c=.o)
 
-# Herramientas
-CC		=	cc
-RM		=	rm -f
-AR		=	ar rcs
+CC          = cc
+CFLAGS     = -Wall -Wextra -Werror
 
-# Flags de compilación
-CFLAGS	=	-Wall -Wextra -Werror
+AR          = ar rcs
+RM          = rm -f
 
-# Regla de compilación de archivos .c a .o
-%.o: %.c
-	${CC} ${CFLAGS} -c $< -o $@
-
-# Regla principal
 all: $(NAME)
 
-$(NAME): ${OBJ}
-	@${AR} ${NAME} ${OBJ}
+$(NAME): $(OBJ)
+	@$(AR) $(NAME) $(OBJ)
 
-# Limpiar archivos objeto
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	${RM} ${OBJ}
+	$(RM) $(OBJ)
 
-# Limpiar todo
 fclean: clean
-	${RM} $(NAME)
+	$(RM) $(NAME)
 
-# Recompilar desde cero
 re: fclean all
 
-# No se trata como archivo
 .PHONY: all clean fclean re
