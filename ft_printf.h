@@ -13,19 +13,15 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <unistd.h>
 # include <stdarg.h>
-# include <sys/types.h>
+# include <unistd.h>
 
-int		ft_printf(const char *str, ...);
-int		ft_print_pointer(unsigned long long ptr);
-size_t	ft_putnbr_base(ssize_t nbr, char *base, size_t len, char spf);
-size_t	ft_putstr(const char *str);
-size_t	ft_putchar(const char c);
-char	*ft_strchr(const char *s, int c);
-int		ft_print_string(char *str);
-int		ft_print_number(int n);
-int		ft_print_unsigned(unsigned int n);
-int		ft_print_hexadecimal(unsigned int num, char word);
-int		ft_print_character(int character);
-#endif  /* FT_PRINTF_H */
+// functions usedeeeeeee
+int	ft_printf(char const *format, ...);
+int	ft_putchar(char c);
+int	ft_putstr(char *s);
+int	ft_putnbr(int n);
+int	ft_hexa(unsigned long n, const char *base);
+int	ft_putunsign(unsigned int n);
+
+#endif
